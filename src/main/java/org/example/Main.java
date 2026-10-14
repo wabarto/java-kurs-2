@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -80,7 +82,86 @@ public class Main {
 
         System.out.println(String.format("%8s", Integer.toBinaryString(value)).replace(" ", "0"));
 
+        // & - AND: bit wynikowy to 1 gdy oba bity sa 1
+        // | - OR: bit wynikowy 1, gdy przynajmniej jeden jest 1
+        // ^ - XOR: 1, gdy bity sa rozne
+        // ~ - NOT: odwraca wszystkie bity
+        // << - w lewo czyli mnozenie przez potege dwojki
+        // >> - w prawo, czyli dzielenie przez potege dwojki
 
+        int c = 12; // binarnie 1100
+        int g = 10; // binarnie 1010
+
+        System.out.println(c & g); // 1000 = 8
+        System.out.println(c | g); // 1110 = 14
+        System.out.println(c ^ g); // 0110 = 6
+        System.out.println(~c); // 11110011 = -13        ~c = -c - 1
+
+
+        System.out.println(1 << 3); // 1 * 2^3 = 8
+        System.out.println(8 >> 2); // 8 / 2^2 = 2
+
+        int n = 22;
+        System.out.println((n & 1) == 0);
+
+
+        // typy referencyjne
+
+
+        int balanceA = 100;
+        int balanceB = balanceA;
+        balanceB = 999;
+
+        System.out.println(balanceA);
+
+
+        int[] historyA = {100, 200, 300};
+        int[] historyB = historyA;
+        historyB[0] = 999;
+        System.out.println(historyA[0]);
+        System.out.println(historyA == historyB);
+        System.out.println(historyA);
+        System.out.println(historyA.equals(historyB));
+
+        int[] historyC = Arrays.copyOf(historyA, historyA.length);
+        historyC[0] = 1;
+
+        System.out.println(historyA[0]);
+
+
+        String text = "ala";
+        text.toUpperCase();
+        System.out.println(text);
+
+        String upper = text.toUpperCase();
+        String upper1 = text.toUpperCase();
+        System.out.println(upper == upper1);
+
+        String aa = "Z1";
+        String bb = "Z1";
+        String cc = new String("Z1");
+        System.out.println(aa == bb);
+        System.out.println(aa.equals(bb));
+        System.out.println(aa == cc);
+        System.out.println(aa.equals(cc));
+
+        String rawNumber = "   pl01 2345 6789   ";
+
+        System.out.println(rawNumber.strip());
+        System.out.println(rawNumber.isBlank());
+        System.out.println(rawNumber.toUpperCase());
+        System.out.println(rawNumber.toLowerCase());
+        System.out.println(rawNumber.contains("2345"));
+        System.out.println(rawNumber.length());
+        System.out.println(rawNumber.substring(2, 6));
+        System.out.println(rawNumber.replace(" ", ""));
+        System.out.println(rawNumber.strip().split(" ")); // ["pl01", "2345", "6789"]
+        String[] strings = rawNumber.strip().split(" ");
+        System.out.println(rawNumber.equals("   PL01 2345 6789   "));
+
+        String role = null;
+
+        System.out.println("ADMIN".equals(role));
 
         }
     }
