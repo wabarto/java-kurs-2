@@ -57,7 +57,7 @@ public class MainScanner {
         };
 
         boolean active = true;
-        String status = active ? "AKTYWNE" : "ZABLOKOWANE";
+        String status = active ? doSomething() : "ZABLOKOWANE";
 
         int balance = 1000;
 
@@ -67,5 +67,10 @@ public class MainScanner {
 
 
 
+    }
+
+    private static String doSomething() {
+        System.out.println("123");
+        return "AKTYWNE";
     }
 }
