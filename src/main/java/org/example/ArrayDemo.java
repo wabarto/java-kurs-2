@@ -76,6 +76,34 @@ public class ArrayDemo {
 
         System.out.println(array[2][2]);
 
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.println(array[i][j]);
+            }
+        }
+
+        // transpozycja - zamiana wierszy z kolumnami
+
+        // m[r][c] na m[c][r] -> m[3][2] -> m[2][3]
+
+        int rows = array.length;
+        int cols = array[0].length;
+
+        int[][] transposed = new int[cols][rows];
+
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                transposed[col][row] = array[row][col];
+            }
+        }
+
+
+
+
+
+
+
 
 
 
