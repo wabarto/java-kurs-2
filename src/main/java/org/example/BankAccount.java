@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BankAccount {
+public abstract class BankAccount {
     private final String accountNumber; // final - ustawiany tylko raz
     private double balance; // private - niedostepne z zewnatrz
     private static int accountsCreated = 0; // jedno na kal
@@ -26,6 +26,10 @@ public class BankAccount {
         history.add("OPEN");
     }
 
+    public abstract String getAccountType();
+
+    public abstract double getMonthlyCost();
+
 
     // constructor chaining
     public BankAccount(String accountNumber) {
@@ -41,16 +45,16 @@ public class BankAccount {
 
 
     // metoda wytworcza
-    public static BankAccount open(double initialBalance) {
-        return new BankAccount("PL01", initialBalance);
-    }
+//    public static BankAccount open(double initialBalance) {
+//        return new BankAccount("PL01", initialBalance);
+//    }
 
     // metoda wytworcza
-    public static BankAccount openWithBonus(double initialBalance) {
-        BankAccount account = open(initialBalance);
-        account.deposit(50);
-        return account;
-    }
+//    public static BankAccount openWithBonus(double initialBalance) {
+//        BankAccount account = open(initialBalance);
+//        account.deposit(50);
+//        return account;
+//    }
 
 
     public String getAccountNumber() {
@@ -75,6 +79,13 @@ public class BankAccount {
 
         balance += amount;
         history.add("DEPOSIT");
+    }
+
+
+    // overload - przeciazenie
+    public void deposit(double amount, String description) {
+        balance += amount;
+        history.add(description);
     }
 
     public void withdraw(double amount) {
@@ -129,4 +140,24 @@ public class BankAccount {
     public int hashCode() {
         return Objects.hashCode(accountNumber);
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getDescription() {
+        return String.format("%s: %.2f zł", accountNumber, balance);
+    }
+
+
+    // final na metodzie - nie da sie jej nadpisac
+    public final String formatBalance() {
+        return String.format("%,.2f PLN", balance);
+    }
+
+    public final String getMontlyStatement() {
+        return String.format("%s [%s] - saldo %.2f zł, koszt miesięczny %.2f zł", accountNumber, getAccountType(), balance, getMonthlyCost());
+    }
+
+
 }
