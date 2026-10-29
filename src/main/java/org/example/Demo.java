@@ -67,7 +67,19 @@ public class Demo {
         if (account3 instanceof SavingsAccount s) { // nowsza konstrukcja
             s.addInterest();
         }
+//
+//        SavingsAccount s = (SavingsAccount) account4; // po staremu - ClassCastException
 
-        SavingsAccount s = (SavingsAccount) account4; // po staremu - ClassCastException
+        // lambda
+        // (parametry) -> ciało
+        InterestPolicy nothing = balance -> 0;
+        InterestPolicy standard = balance -> balance * 0.3;
+
+        System.out.println(nothing.calculate(1000));
+        System.out.println(standard.calculate(1000));
+
+        // dependency injection
+        new TransferService(new SmsNotifier("+481212121")).transfer(account1, account2, 100);
+        new TransferService(new EmailNotifier("test@gmail.com")).transfer(account1, account2, 50);
     }
 }
