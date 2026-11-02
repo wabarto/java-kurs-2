@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -8,6 +9,21 @@ public class Demo {
     public static void main(String[] args) {
         BankAccount account1 = new SavingsAccount("PL01", 1000, 0.5);
         BankAccount account2 = new SavingsAccount("PL01", 1000, 0.3);
+
+        account1.setStatus(AccountStatus.ACTIVE);
+//        account1.setStatus(7);
+//        account1.setStatus("ACTIVE");
+
+        AccountStatus status = AccountStatus.CLOSED;
+
+        System.out.println(status);
+        System.out.println(status.name());
+        System.out.println(status.ordinal());
+
+        System.out.println(AccountStatus.valueOf("ACTIVE"));
+        System.out.println(Arrays.toString(AccountStatus.values()));
+
+
         account1.deposit(100);
 
         account1.withdraw(200);
@@ -122,7 +138,17 @@ public class Demo {
 
         sumBalance(savings);
 
-        openAccount(savings);
+//        openAccount(savings);
+
+        StatementDTO statementDTO1 = new StatementDTO("PL01", "saving", 1000);
+        System.out.println(statementDTO1.accountNumber());
+        System.out.println(statementDTO1.accountType());
+
+        StatementDTO statementDTO2 = new StatementDTO("PL01", "saving", 1000);
+
+        System.out.println(statementDTO1.equals(statementDTO2));
+
+
     }
 
     static double sumBalance(List<? extends BankAccount> accounts) {
@@ -153,5 +179,14 @@ public class Demo {
         for (T element : list) {
             System.out.println(element);
         }
+    }
+
+    static String description(AccountStatus status) {
+        return switch (status) {
+            case ACTIVE -> "Aktywne";
+            case BLOCKED -> "Zablokowane";
+            case CLOSED -> "Zamknięte";
+            // default -> UNKNOWN; - przy enumie nie uzywamy defaulta
+        };
     }
 }

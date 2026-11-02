@@ -9,6 +9,7 @@ public abstract class BankAccount {
     private double balance; // private - niedostepne z zewnatrz
     private static int accountsCreated = 0; // jedno na kal
     private static final double MIN_INITIAL_BALANCE = 0; // stala
+    private AccountStatus status = AccountStatus.ACTIVE;
 
     private final List<String> history = new ArrayList<>();
 
@@ -89,6 +90,9 @@ public abstract class BankAccount {
     }
 
     public void withdraw(double amount) {
+        if (!status.canWithdraw()) {
+            throw new IllegalStateException("You can't withdraw");
+        }
         if (amount <= 0) {
             throw new IllegalArgumentException("amount has to be positive");
         }
@@ -157,6 +161,14 @@ public abstract class BankAccount {
 
     public final String getMontlyStatement() {
         return String.format("%s [%s] - saldo %.2f zł, koszt miesięczny %.2f zł", accountNumber, getAccountType(), balance, getMonthlyCost());
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
+
+    public AccountStatus getStatus() {
+        return status;
     }
 
 
