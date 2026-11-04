@@ -1,6 +1,6 @@
 package org.example;
 
-public class CheckingAccount extends BankAccount {
+public final class CheckingAccount extends BankAccount {
 
     private final double monthlyFee;
 

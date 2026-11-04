@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class BankAccount {
+// sealed - dziedziczyc moga tylko ci, ktorzy sa wymienieni po permits
+public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount, BusinessAccount {
     private final String accountNumber; // final - ustawiany tylko raz
     private double balance; // private - niedostepne z zewnatrz
     private static int accountsCreated = 0; // jedno na kal
@@ -89,6 +90,8 @@ public abstract class BankAccount {
         history.add(description);
     }
 
+
+    @Audited(value = "CRITICAL", logAmount = true)
     public void withdraw(double amount) {
         if (!status.canWithdraw()) {
             throw new IllegalStateException("You can't withdraw");

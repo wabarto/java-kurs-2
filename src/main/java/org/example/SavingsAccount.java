@@ -1,6 +1,8 @@
 package org.example;
 
-public class SavingsAccount extends BankAccount {
+// final - nikt nie moze po mnie dziedziczyc
+@Audited("HIGH")
+public final class SavingsAccount extends BankAccount {
 
     private final double interestRate;
 
@@ -14,6 +16,7 @@ public class SavingsAccount extends BankAccount {
         this.interestRate = interestRate;
     }
 
+    @Audited
     public void addInterest() {
         deposit(getBalance() * interestRate);
     }

@@ -82,6 +82,13 @@ public class Demo {
        // downcasting - rzutowanie w dol hierarchii
         BankAccount account4 = new CheckingAccount("PL01", 1000, 0.5);
         BankAccount account3 = new SavingsAccount("PL01", 1000, 0.5);
+
+        // pattern matching
+        if (account3 instanceof SavingsAccount) {
+            SavingsAccount s = (SavingsAccount) account3; // stara konstrukcja
+            s.addInterest();
+        }
+
         if (account3 instanceof SavingsAccount s) { // nowsza konstrukcja
             s.addInterest();
         }
@@ -147,7 +154,6 @@ public class Demo {
         StatementDTO statementDTO2 = new StatementDTO("PL01", "saving", 1000);
 
         System.out.println(statementDTO1.equals(statementDTO2));
-
 
     }
 
