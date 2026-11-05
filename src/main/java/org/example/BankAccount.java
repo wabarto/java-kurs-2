@@ -1,5 +1,6 @@
 package org.example;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,19 +8,19 @@ import java.util.Objects;
 // sealed - dziedziczyc moga tylko ci, ktorzy sa wymienieni po permits
 public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount, BusinessAccount {
     private final String accountNumber; // final - ustawiany tylko raz
-    private double balance; // private - niedostepne z zewnatrz
+    private BigDecimal balance; // private - niedostepne z zewnatrz
     private static int accountsCreated = 0; // jedno na kal
     private static final double MIN_INITIAL_BALANCE = 0; // stala
     private AccountStatus status = AccountStatus.ACTIVE;
 
     private final List<String> history = new ArrayList<>();
 
-    public BankAccount(String accountNumber, double balance) {
+    public BankAccount(String accountNumber, BigDecimal balance) {
         if (accountNumber == null || accountNumber.isBlank()) {
             throw new IllegalArgumentException("Account number is required");
         }
 
-        if (balance < 0) {
+        if (balance.signum() < 0) {
             throw new IllegalArgumentException("Balance has to be > 0");
         }
 
@@ -35,7 +36,7 @@ public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount
 
     // constructor chaining
     public BankAccount(String accountNumber) {
-        this(accountNumber, 0.0);
+        this(accountNumber, BigDecimal.ZERO);
     }
 
 
@@ -74,37 +75,37 @@ public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount
 //    }
 
 
-    public void deposit(double amount) {
-        if (amount <= 0) {
+    public void deposit(BigDecimal amount) {
+        if (amount.signum() <= 0) {
             throw new IllegalArgumentException("amount has to be positive");
         }
 
-        balance += amount;
+        balance = balance.add(amount);
         history.add("DEPOSIT");
     }
 
 
     // overload - przeciazenie
-    public void deposit(double amount, String description) {
-        balance += amount;
+    public void deposit(BigDecimal amount, String description) {
+        balance = balance.add(amount);
         history.add(description);
     }
 
 
     @Audited(value = "CRITICAL", logAmount = true)
-    public void withdraw(double amount) {
+    public void withdraw(BigDecimal amount) {
         if (!status.canWithdraw()) {
             throw new IllegalStateException("You can't withdraw");
         }
-        if (amount <= 0) {
+        if (amount.signum() <= 0) {
             throw new IllegalArgumentException("amount has to be positive");
         }
 
-        if (amount > balance) {
+        if (amount.compareTo(balance) > 0) {
             throw new IllegalArgumentException("balance has to be >= amount");
         }
 
-        balance -= amount;
+        balance = balance.subtract(amount);
         history.add("WITHDRAW");
     }
 
@@ -114,8 +115,8 @@ public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount
     }
 
     // varargs - ostatni parametr i tylko jeden w metodzie
-    public void depositAll(double... amounts) {
-        for (double amount : amounts) {
+    public void depositAll(BigDecimal... amounts) {
+        for (BigDecimal amount : amounts) {
             deposit(amount);
         }
     }
@@ -148,7 +149,7 @@ public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount
         return Objects.hashCode(accountNumber);
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 

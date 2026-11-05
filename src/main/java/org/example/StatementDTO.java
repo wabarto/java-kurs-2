@@ -1,7 +1,9 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 // DTO - Data Transfer Object - nosnik danych
-record StatementDTO(String accountNumber, String accountType, double balance) {
+record StatementDTO(String accountNumber, String accountType, BigDecimal balance) {
     StatementDTO { // konstruktor kompaktowy
         if (accountNumber == null || accountNumber.isBlank()) {
             throw new IllegalArgumentException("Account number is required");

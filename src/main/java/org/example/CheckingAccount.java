@@ -1,16 +1,18 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 public final class CheckingAccount extends BankAccount {
 
     private final double monthlyFee;
 
-    public CheckingAccount(String accountNumber, double balance, double monthlyFee) {
+    public CheckingAccount(String accountNumber, BigDecimal balance, double monthlyFee) {
         super(accountNumber, balance);
         this.monthlyFee = monthlyFee;
     }
 
     public void chargeMonthlyFee() {
-        withdraw(monthlyFee);
+        withdraw(BigDecimal.valueOf(monthlyFee));
     }
 
     @Override

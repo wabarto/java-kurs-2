@@ -1,12 +1,14 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 // final - nikt nie moze po mnie dziedziczyc
 @Audited("HIGH")
 public final class SavingsAccount extends BankAccount {
 
     private final double interestRate;
 
-    public SavingsAccount(String accountNumber, double balance, double interestRate) {
+    public SavingsAccount(String accountNumber, BigDecimal balance, double interestRate) {
         super(accountNumber, balance);
 
         if (interestRate < 0) {
@@ -18,7 +20,7 @@ public final class SavingsAccount extends BankAccount {
 
     @Audited
     public void addInterest() {
-        deposit(getBalance() * interestRate);
+        deposit(getBalance().multiply(BigDecimal.valueOf(interestRate)));
     }
 
     @Override

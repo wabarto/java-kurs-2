@@ -1,5 +1,7 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 public class TransferService {
 
     private final Notifier notifier;
@@ -8,7 +10,7 @@ public class TransferService {
         this.notifier = notifier;
     }
 
-    public void transfer(BankAccount from, BankAccount to, double amount) {
+    public void transfer(BankAccount from, BankAccount to, BigDecimal amount) {
         from.withdraw(amount);
         to.deposit(amount);
         notifier.send(String.format("Przelew %.2f zł z %s na %s", amount, from.getAccountNumber(), to.getAccountNumber()));
