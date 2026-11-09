@@ -3,6 +3,7 @@ package org.example;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -54,6 +55,8 @@ public class Demo {
                 new SavingsAccount("Pl02", BigDecimal.valueOf(2000), 0.3),
                 new CheckingAccount("PL03", BigDecimal.valueOf(3000), 5.0)
         );
+
+        Collections.sort(accounts);
 
 
         for (BankAccount account : accounts) {

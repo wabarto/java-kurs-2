@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 // sealed - dziedziczyc moga tylko ci, ktorzy sa wymienieni po permits
-public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount, BusinessAccount {
+public sealed abstract class BankAccount implements Comparable<BankAccount> permits SavingsAccount, CheckingAccount, BusinessAccount {
     private final String accountNumber; // final - ustawiany tylko raz
     private BigDecimal balance; // private - niedostepne z zewnatrz
     private static int accountsCreated = 0; // jedno na kal
@@ -175,5 +175,13 @@ public sealed abstract class BankAccount permits SavingsAccount, CheckingAccount
         return status;
     }
 
+    @Override
+    public int compareTo(BankAccount other) {
+        System.out.println(other.accountNumber);
+        System.out.println(this.accountNumber);
+        return -(this.accountNumber.compareTo(other.accountNumber));
+    }
 
+    // PL03 -> PL01 malejaco
+    // PL01 -> PL03 rosnaco
 }

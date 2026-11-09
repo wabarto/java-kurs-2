@@ -3,12 +3,17 @@ package org.example;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class NewDemo {
     public static void main(String[] args) {
         // dobrze - gdy typ widac w tej samej linijce
         // nie dla pol, parametrow, typow zwracanych, tylko dla zmiennych lokalnych
         var accounts = new ArrayList<BankAccount>();
+
+        var savingsAccount = new ArrayList<SavingsAccount>();
 
         // źle
 //        var x = repo.findById("PL01");
@@ -179,17 +184,51 @@ public class NewDemo {
         System.out.println(time1);
         System.out.println(time2);
 
+        savingsAccount.add(new SavingsAccount("PL01", BigDecimal.valueOf(3000), 0.3));
+
+        accounts.add(new SavingsAccount("PL01", BigDecimal.valueOf(3000), 0.3));
+        accounts.add(new CheckingAccount("PL03", BigDecimal.valueOf(2000), 5.0));
+
+        System.out.println(accounts);
+
+        Collections.sort(accounts);
+//        accounts.sort(null);
+
+        System.out.println(accounts);
+
+        accounts.sort(Comparator.comparing(BankAccount::getBalance));
+
+        savingsAccount.sort(Comparator.comparingDouble(SavingsAccount::getMonthlyCost));
+
+        accounts.sort(Comparator.comparing(BankAccount::getBalance).reversed());
+
+
+        // 2 kryteria malejaco
+        savingsAccount.sort(Comparator
+                .comparing(SavingsAccount::getBalance)
+                .thenComparingDouble(SavingsAccount::getMonthlyCost)
+                .reversed());
 
 
 
+        // 1 kryterium rosnaco, a drugie malejaco
+        savingsAccount.sort(Comparator
+                .comparing(SavingsAccount::getBalance)
+                .thenComparing(Comparator.comparingDouble(SavingsAccount::getMonthlyCost).reversed()));
 
 
 
+        savingsAccount.sort(Comparator.nullsFirst(Comparator.comparing(SavingsAccount::getBalance)));
+
+        savingsAccount.sort(Comparator.nullsLast(Comparator.comparing(SavingsAccount::getBalance)));
+
+        savingsAccount.sort(Comparator.naturalOrder());
 
 
 
-
-
+        Customer customer = new Customer("test", new Address(), new Address());
+        customer.getName();
+        customer.getMailingAddress();
 
 
     }
