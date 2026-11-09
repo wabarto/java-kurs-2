@@ -159,10 +159,25 @@ public class NewDemo {
 //
 //        System.out.println(a1.compareTo(a2) == 0);
 
+        long start = System.nanoTime();
+        String slow = "";
+        for (int i = 0; i < 1000; i++) {
+            slow += i;
+        }
 
+        long time1 = System.nanoTime() - start;
+        start = System.nanoTime();
 
+        StringBuilder sb = new StringBuilder();
 
+        for (int i = 0; i < 1000; i++) {
+            sb.append(i);
+        }
 
+        long time2 = System.nanoTime() - start;
+
+        System.out.println(time1);
+        System.out.println(time2);
 
 
 
