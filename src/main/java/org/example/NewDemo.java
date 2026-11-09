@@ -70,32 +70,94 @@ public class NewDemo {
         a.abs(); // wartosc bezwzgledna 100.5
 
 
-        BigDecimal x1 = new BigDecimal("3.1456");
-        BigDecimal x2 = new BigDecimal("3.155619");
+        BigDecimal x1 = new BigDecimal("2.3449"); // 0.49
         System.out.println(x1.scale()); // liczba miejsc po przecinku
-        System.out.println(x1.setScale(2, RoundingMode.HALF_UP));
-        System.out.println(x2.setScale(2, RoundingMode.HALF_UP)); // 3.15
-        System.out.println(x1.setScale(2, RoundingMode.HALF_DOWN)); // 3.15
-        System.out.println(x2.setScale(2, RoundingMode.HALF_DOWN)); // 3.15
-        System.out.println(x1.setScale(2, RoundingMode.HALF_EVEN)); // 3.14
-        System.out.println(x2.setScale(2, RoundingMode.HALF_EVEN)); // 3.14
 
 
-        System.out.println(new BigDecimal("-7").signum());
-        System.out.println(BigDecimal.ZERO.signum());
-        System.out.println(new BigDecimal("7").signum());
+//        System.out.println(x1.setScale(2, RoundingMode.UP)); // 2.35
+//        System.out.println(x1.setScale(2, RoundingMode.DOWN)); // 2.34
+//        System.out.println(x1.setScale(2, RoundingMode.CEILING)); // 2.35
+//        System.out.println(x1.setScale(2, RoundingMode.FLOOR)); // 2.34
+//        System.out.println(x1.setScale(2, RoundingMode.HALF_UP)); // 2.34
+//        System.out.println(x1.setScale(2, RoundingMode.HALF_DOWN)); // 2.34
+//        System.out.println(x1.setScale(2, RoundingMode.HALF_EVEN)); // 2.34
 
-        new BigDecimal("10").divide(new BigDecimal("3"), 2, RoundingMode.HALF_UP);
+//        BigDecimal x2 = new BigDecimal("2.3450"); // 0.50
+//
+//        System.out.println(x2.setScale(2, RoundingMode.UP)); // 2.35
+//        System.out.println(x2.setScale(2, RoundingMode.DOWN)); // 2.34
+//        System.out.println(x2.setScale(2, RoundingMode.CEILING)); // 2.35
+//        System.out.println(x2.setScale(2, RoundingMode.FLOOR)); // 2.34
+//        System.out.println(x2.setScale(2, RoundingMode.HALF_UP)); // 2.35
+//        System.out.println(x2.setScale(2, RoundingMode.HALF_DOWN)); // 2.34
+//        System.out.println(x2.setScale(2, RoundingMode.HALF_EVEN)); // 2.34
+//
+//        BigDecimal x3 = new BigDecimal("2.34500001"); // 0.51
+//
+//        System.out.println(x3.setScale(2, RoundingMode.UP)); // 2.35
+//        System.out.println(x3.setScale(2, RoundingMode.DOWN)); // 2.34
+//        System.out.println(x3.setScale(2, RoundingMode.CEILING)); // 2.35
+//        System.out.println(x3.setScale(2, RoundingMode.FLOOR)); // 2.34
+//        System.out.println(x3.setScale(2, RoundingMode.HALF_UP)); // 2.35
+//        System.out.println(x3.setScale(2, RoundingMode.HALF_DOWN)); // 2.35
+//        System.out.println(x3.setScale(2, RoundingMode.HALF_EVEN)); // 2.35
+//
+//        BigDecimal x4 = new BigDecimal("2.3499"); // 0.99
+//
+//        System.out.println(x4.setScale(2, RoundingMode.UP)); // 2.35
+//        System.out.println(x4.setScale(2, RoundingMode.DOWN)); // 2.34
+//        System.out.println(x4.setScale(2, RoundingMode.CEILING)); // 2.35
+//        System.out.println(x4.setScale(2, RoundingMode.FLOOR)); // 2.34
+//        System.out.println(x4.setScale(2, RoundingMode.HALF_UP)); // 2.35
+//        System.out.println(x4.setScale(2, RoundingMode.HALF_DOWN)); // 2.35
+//        System.out.println(x4.setScale(2, RoundingMode.HALF_EVEN)); // 2.35
+//
+//        BigDecimal x5 = new BigDecimal("2.3501"); // 0.01
+//
+//        System.out.println(x5.setScale(2, RoundingMode.UP));
+//        System.out.println(x5.setScale(2, RoundingMode.DOWN)); // 3.15
+//        System.out.println(x5.setScale(2, RoundingMode.CEILING)); // 3.15
+//        System.out.println(x5.setScale(2, RoundingMode.FLOOR)); // 3.15
+//        System.out.println(x5.setScale(2, RoundingMode.HALF_UP)); // 3.14
+//        System.out.println(x5.setScale(2, RoundingMode.HALF_DOWN)); // 3.14
+//        System.out.println(x5.setScale(2, RoundingMode.HALF_EVEN)); // 3.14
+//
+        BigDecimal x6 = new BigDecimal("2.3550"); // 0.50
 
-
-
-        BigDecimal a1 = new BigDecimal("5.0");
-        BigDecimal a2 = new BigDecimal("5.00");
-
-
-        System.out.println(a1.equals(a2));
-
-        System.out.println(a1.compareTo(a2) == 0);
+        System.out.println(x6.setScale(2, RoundingMode.UP)); // 2.36
+        System.out.println(x6.setScale(2, RoundingMode.DOWN)); // 2.35
+        System.out.println(x6.setScale(2, RoundingMode.CEILING)); // 2.36
+        System.out.println(x6.setScale(2, RoundingMode.FLOOR)); // 2.35
+        System.out.println(x6.setScale(2, RoundingMode.HALF_UP)); // 2.36
+        System.out.println(x6.setScale(2, RoundingMode.HALF_DOWN)); // 2.35
+        System.out.println(x6.setScale(2, RoundingMode.HALF_EVEN)); // 2.36
+//
+//        BigDecimal x7 = new BigDecimal("2.3650"); // 0.50
+//
+//        System.out.println(x7.setScale(2, RoundingMode.UP));
+//        System.out.println(x7.setScale(2, RoundingMode.DOWN)); // 3.15
+//        System.out.println(x7.setScale(2, RoundingMode.CEILING)); // 3.15
+//        System.out.println(x7.setScale(2, RoundingMode.FLOOR)); // 3.15
+//        System.out.println(x7.setScale(2, RoundingMode.HALF_UP)); // 3.14
+//        System.out.println(x7.setScale(2, RoundingMode.HALF_DOWN)); // 3.14
+//        System.out.println(x7.setScale(2, RoundingMode.HALF_EVEN)); // 3.14
+//
+//
+//        System.out.println(new BigDecimal("-7").signum());
+//        System.out.println(BigDecimal.ZERO.signum());
+//        System.out.println(new BigDecimal("7").signum());
+//
+//        new BigDecimal("10").divide(new BigDecimal("3"), 2, RoundingMode.HALF_UP);
+//
+//
+//
+//        BigDecimal a1 = new BigDecimal("5.0");
+//        BigDecimal a2 = new BigDecimal("5.00");
+//
+//
+//        System.out.println(a1.equals(a2));
+//
+//        System.out.println(a1.compareTo(a2) == 0);
 
 
 
