@@ -226,9 +226,21 @@ public class NewDemo {
 
 
 
-        Customer customer = new Customer("test", new Address(), new Address());
-        customer.getName();
-        customer.getMailingAddress();
+//        Customer customer = new Customer("test", new Address(), new Address());
+//        customer.getName();
+//        customer.getMailingAddress();
+
+        Customer customer = Customer.builder()
+                .name("test")
+                .count(15)
+                .tag("123")
+                .firstName("123")
+                .build();
+
+        System.out.println(customer);
+
+        Customer customer1 = customer.withName("123");
+        System.out.println(customer1);
 
 
     }
