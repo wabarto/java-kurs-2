@@ -2,10 +2,7 @@ package org.example;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class NewDemo {
     public static void main(String[] args) {
@@ -242,6 +239,85 @@ public class NewDemo {
         Customer customer1 = customer.withName("123");
         System.out.println(customer1);
 
+        Address address = customer.getMailingAddress();
+//        address.getName(); // kompiluje
 
+        Optional<String> o1 = Optional.of("Anna");
+        Optional<String> o2 = Optional.ofNullable(customer.getName());
+        Optional<String> o3 = Optional.empty();
+
+//        Optional.of(null);
+
+
+        System.out.println(o1.isPresent());
+        System.out.println(o1.isEmpty());
+
+        System.out.println(o1.orElse("123"));
+        System.out.println(o3.orElse("brak"));
+
+//        System.out.println(o3.orElseThrow());
+//        System.out.println(o3.orElseThrow(() -> new IllegalArgumentException()));
+
+        System.out.println(o3.orElseGet(() -> expensive()));
+
+
+        o1.ifPresent(o -> System.out.println(o));
+        o3.ifPresentOrElse(
+                o -> System.out.println(o),
+                () -> System.out.println("Nie ma")
+        );
+
+
+        // TAK SIE NIE PISZE
+
+//        if (o1.isPresent()) {
+//            o1.get();
+//            //
+//        }
+
+
+        System.out.println(o1.map(String::toUpperCase));
+
+        System.out.println(o3.map(String::toUpperCase));
+
+
+        Optional<BankAccount> bankAccountOptional = Optional.of(new SavingsAccount("PL01", BigDecimal.valueOf(3000), 0.3));
+
+        Optional<BankAccount> active = bankAccountOptional.filter(bankAccount -> bankAccount.getBalance().signum() > 0);
+
+        System.out.println(active);
+
+        Optional<Customer> optionalCustomer = Optional.of(customer1);
+
+
+//        Optional<String> withMap = optionalCustomer.map(Customer::getSomething);
+        // ERROR: Optional<Optional<String>> -> Optional<String>
+
+        Optional<String> withFlatMap = optionalCustomer.flatMap(Customer::getSomething);
+        // jesli metoda zwraca Optionala -> flatmap, jesli wartosc to map
+
+        String name = Optional.ofNullable(customer1)
+                .flatMap(Customer::getAddress)
+                .flatMap(Address::getName)
+                .orElse("123");
+
+        // ZlE
+        if (Optional.ofNullable(customer1).isPresent()) {
+            System.out.println(customer1.getName());
+        }
+
+
+        // DOBRZE
+        if (customer1 != null) {
+            System.out.println(customer1.getName());
+        }
+    }
+
+    static String expensive() {
+        System.out.println("123");
+        //
+        //
+        //
+        return "123";
     }
 }

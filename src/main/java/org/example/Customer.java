@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 //@Getter
 //@Setter
@@ -16,11 +17,11 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 //@Data // @Getter + @Setter + @ToString + @EqualsAndHashCode + @RequiredArgsConstructor
 //@Value // @Getter + @ToString + @EqualsAndHashCode + @AllArgsConstructor + wszystkie pola final i klasa final
+@Getter
 @AllArgsConstructor
 @SuperBuilder
 public class Customer extends Person {
 
-    @Getter(AccessLevel.NONE)
     @With
     @NonNull
     private final String name;
@@ -42,4 +43,12 @@ public class Customer extends Person {
 //        this.residenceAddress = residence;
 //        this.mailingAddress = mailing;
 //    }
+
+    public Optional<String> getSomething() {
+        return Optional.of("123");
+    }
+
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(residenceAddress);
+    }
 }
