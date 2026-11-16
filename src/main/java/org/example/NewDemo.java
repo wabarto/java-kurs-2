@@ -1,7 +1,14 @@
 package org.example;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Connection;
 import java.util.*;
 
 public class NewDemo {
@@ -311,6 +318,47 @@ public class NewDemo {
         if (customer1 != null) {
             System.out.println(customer1.getName());
         }
+
+        try {
+            readFile("123");
+        } catch (FileNotFoundException | IllegalStateException e) {
+            System.out.println("catch: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("catch: " + e.getMessage());
+        }
+        finally {
+            System.out.println("zawsze");
+        }
+
+
+        System.out.println(trickyFinally());
+
+//        BufferedReader reader = null;
+//
+//        try {
+//            reader = new BufferedReader(new FileReader("dane.txt"));
+//            System.out.println(reader.readLine());
+//        } catch (IOException e) {
+//            System.out.println("error: " + e.getMessage());
+//        } finally {
+//            if (reader != null) {
+//                try {
+//                    reader.close();
+//                } catch (IOException e) {
+//                    System.out.println("error: " + e.getMessage());
+//                }
+//            }
+//        }
+
+
+        // zasoby sa zamykane odwrotnie niz otwierane
+        try (BufferedReader reader = new BufferedReader(new FileReader("dane.txt"));
+             BufferedReader reader1 = new BufferedReader(new FileReader("dane1.txt"));) {
+            System.out.println(reader.readLine());
+        } catch (IOException e) {
+            throw new BankException("123", "123", e);
+//            System.out.println("error: " + e.getMessage());
+        }
     }
 
     static String expensive() {
@@ -319,5 +367,20 @@ public class NewDemo {
         //
         //
         return "123";
+    }
+
+    public static String readFile(String path) throws IOException {
+        return Files.readString(Path.of(path));
+    }
+
+
+    // tak nie robimy
+    static int trickyFinally() {
+        try {
+            throw new RuntimeException();
+        }
+        finally {
+            return 40;
+        }
     }
 }

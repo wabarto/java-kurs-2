@@ -28,7 +28,11 @@ public class Demo {
 
         account1.deposit(new BigDecimal("100"));
 
-        account1.withdraw(new BigDecimal("200"));
+        try {
+            account1.withdraw(new BigDecimal("200"));
+        } catch (InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(account1.getHistory());
 

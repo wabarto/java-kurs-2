@@ -102,7 +102,7 @@ public sealed abstract class BankAccount implements Comparable<BankAccount> perm
         }
 
         if (amount.compareTo(balance) > 0) {
-            throw new IllegalArgumentException("balance has to be >= amount");
+            throw new InsufficientFundsException(amount, balance);
         }
 
         balance = balance.subtract(amount);
