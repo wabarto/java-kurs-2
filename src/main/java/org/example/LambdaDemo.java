@@ -1,7 +1,10 @@
 package org.example;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,23 +142,40 @@ public class LambdaDemo {
         Function<BigDecimal, BigDecimal> discount = 1 > 0 ? p -> p.multiply(new BigDecimal("0.9")) : Function.identity();
 
 
+        Predicate<Product> cheap = p -> p.price().compareTo(new BigDecimal("100")) < 0;
+        Predicate<Product> hasName = p -> p.name() != null && !p.name().isBlank();
+
+        Predicate<Product> available = inStock.and(hasName);
+        Predicate<Product> anyIssue = inStock.negate().or(hasName.negate());
+
+        Predicate<String> notEmpty = Predicate.not(String::isEmpty);
+        // negate() i Predicate.not() robia to samo, ale Predicate.not() da sie napisac od razu przy referencji
+
+        Consumer<Product> log = p -> System.out.println("LOG: " + p.sku());
+        Consumer<Product> notify = p -> System.out.println("POWIADOMIENIE: " + p.sku());
+
+        Consumer<Product> onChange = log.andThen(notify);
+        onChange.accept(laptop);
 
 
 
 
 
+//        Function<String, String> read = path -> Files.readString(Path.of("123"));
+
+
+        // 1
+        Function<String, String> read = path -> {
+            try {
+                return Files.readString(Path.of("123"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        };
 
 
 
-
-
-
-
-
-
-
-
-
+       ThrowingFunction<String, String> read1 = path -> Files.readString(Path.of("123"));
 
 
     }
