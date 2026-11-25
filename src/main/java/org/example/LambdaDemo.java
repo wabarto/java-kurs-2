@@ -13,8 +13,8 @@ import java.util.function.*;
 public class LambdaDemo {
     public static void main(String[] args) {
         List<Product> products = new ArrayList<>(List.of(
-                new Product("001", "Laptop", new BigDecimal("3999.00"), 5),
-                new Product("002", "Mysz", new BigDecimal("100.00"), 40)
+                new Product("001", "Laptop", new BigDecimal("3999.00"), 5, "INNE"),
+                new Product("002", "Mysz", new BigDecimal("100.00"), 40, "INNE")
         ));
 
 
@@ -46,11 +46,11 @@ public class LambdaDemo {
         List<String> list = new ArrayList<>();
         Consumer<Product> b = p -> list.add(p.sku());
 
-        b.accept(new Product("001", "Laptop", new BigDecimal("3999.00"), 5));
-        b.accept(new Product("002", "Mysz", new BigDecimal("100.00"), 40));
+        b.accept(new Product("001", "Laptop", new BigDecimal("3999.00"), 5, "INNE"));
+        b.accept(new Product("002", "Mysz", new BigDecimal("100.00"), 40, "INNE"));
         System.out.println(list);
 
-        Product laptop = new Product("001", "Laptop", new BigDecimal("3999.00"), 5);
+        Product laptop = new Product("001", "Laptop", new BigDecimal("3999.00"), 5, "INNE");
 
 
         Function<Product, String> toName = p -> p.name();
